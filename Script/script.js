@@ -39,6 +39,8 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     appendi.appendChild(operazioni);
 
+    let caporiga = document.createElement("br");
+
     //Creazione input, output e bottone per la ricerca dello studente
 
     let etichetta = document.createElement("label");
@@ -56,8 +58,7 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     appendi.appendChild(ricerca);
 
     for (let i = 0; i < 2; i++) {
-        ricerca = document.createElement("br");
-        appendi.appendChild(ricerca);
+        appendi.appendChild(caporiga);
     }
     
     ricerca = document.createElement("div");
@@ -67,18 +68,30 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     //Creazione input, output e bottone per l'aggiunta di uno studente
 
     etichetta = document.createElement("label");
-    etichetta.innerHTML = "Inserisci il nome di uno studente da aggiungere ad un turno: ";
+    etichetta.innerHTML = "Inserisci il nome di un turno dove AGGIUNGERE uno studente: ";
     appendi.appendChild(etichetta);
 
     let turno1 = document.createElement("input");
-    ag.type = "text";
-    aggiunta.id = "turnoAggiunta";
-    appendi.appendChild(aggiunta);
+    turno1.type = "text";
+    turno1.id = "turnoAggiunta";
+    appendi.appendChild(turno1);
+
+    for (let i = 0; i < 2; i++) {
+        appendi.appendChild(caporiga);
+    }
+
+    etichetta = document.createElement("label");
+    etichetta.innerHTML = "Inserisci il nome dello studente da aggiungere: ";
+    appendi.appendChild(etichetta);
 
     let aggiunta = document.createElement("input");
     aggiunta.type = "text";
     aggiunta.id = "studenteAggiunta";
     appendi.appendChild(aggiunta);
+
+    for (let i = 0; i < 2; i++) {
+        appendi.appendChild(caporiga);
+    }
 
     aggiunta = document.createElement("button");
     aggiunta.innerHTML = "Aggiungi studente";
@@ -89,10 +102,6 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
         aggiunta = document.createElement("br");
         appendi.appendChild(aggiunta);
     }
-    
-    aggiunta = document.createElement("div");
-    aggiunta.id = "outputaggiunta";
-    appendi.appendChild(aggiunta);
 
 }
 
@@ -120,8 +129,14 @@ function cercaStudente(turni) {
 
 function aggiuntaStudente(turni) {
     let aggiunto = document.getElementById("aggiunta").value;
+    let turno = document.getElementById("turnoAggiunta").value;
 
+    if (turni.keys().includes(turno)) { 
 
+    }
+    else {
+        document.getElementById("outputRicerca").innerHTML = "Il turno " + turno + " non esiste!";
+    }
 
     return;
 }
