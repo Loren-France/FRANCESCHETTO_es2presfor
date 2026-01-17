@@ -32,9 +32,14 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
         document.getElementById("output").innerHTML += "Numero totale di studenti: "+ quantStudenti;
     }
 
-    let operazioni = "<h3>Operazioni sui turni:</h3>";
+    let operazioni = document.createElement("h3");
+    operazioni.innerHTML = "Operazioni sugli orari del laboratorio:";
 
     let appendi = document.getElementById("operazioni");
+
+    appendi.appendChild(operazioni);
+
+    //Creazione input, output e bottone per la ricerca dello studente
 
     let etichetta = document.createElement("label");
     etichetta.innerHTML = "Inserisci il nome di uno studente per cercarlo fra i turni: ";
@@ -59,24 +64,64 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     ricerca.id = "outputRicerca";
     appendi.appendChild(ricerca);
 
+    //Creazione input, output e bottone per l'aggiunta di uno studente
+
+    etichetta = document.createElement("label");
+    etichetta.innerHTML = "Inserisci il nome di uno studente da aggiungere ad un turno: ";
+    appendi.appendChild(etichetta);
+
+    let turno1 = document.createElement("input");
+    ag.type = "text";
+    aggiunta.id = "turnoAggiunta";
+    appendi.appendChild(aggiunta);
+
+    let aggiunta = document.createElement("input");
+    aggiunta.type = "text";
+    aggiunta.id = "studenteAggiunta";
+    appendi.appendChild(aggiunta);
+
+    aggiunta = document.createElement("button");
+    aggiunta.innerHTML = "Aggiungi studente";
+    aggiunta.onclick = function () { aggiuntaStudente(turni); };
+    appendi.appendChild(aggiunta);
+
+    for (let i = 0; i < 2; i++) {
+        aggiunta = document.createElement("br");
+        appendi.appendChild(aggiunta);
+    }
+    
+    aggiunta = document.createElement("div");
+    aggiunta.id = "outputaggiunta";
+    appendi.appendChild(aggiunta);
+
 }
 
 function cercaStudente(turni) {
-    let studente = document.getElementById("cerca").value;
+    let cercato = document.getElementById("cerca").value;
     let trovato = false;
 
     for (let [chiave, valore] of turni) {
         let array = valore.split(", ");
-        if (array.includes(studente)) {
+        if (array.includes(cercato)) {
             trovato = true;
-            document.getElementById("outputRicerca").innerHTML = "Lo studente " + studente + " è stato trovato nel " + chiave;
+            document.getElementById("outputRicerca").innerHTML = "Lo studente " + cercato + " è stato trovato nel " + chiave;
             break;
         }
     }
 
     if (trovato == false) {
-        document.getElementById("outputRicerca").innerHTML = "Lo studente " + studente + " non è presente negli orari del laboratorio";
+        document.getElementById("outputRicerca").innerHTML = "Lo studente " + cercato + " non è presente negli orari del laboratorio";
     }
+
+    document.getElementById("outputRicerca").innerHTML += "<br><br>";
+
+    return;
+}
+
+function aggiuntaStudente(turni) {
+    let aggiunto = document.getElementById("aggiunta").value;
+
+
 
     return;
 }
