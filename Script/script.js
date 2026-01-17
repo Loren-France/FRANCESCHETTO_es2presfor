@@ -39,9 +39,9 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     appendi.appendChild(operazioni);
 
-    let caporiga = document.createElement("br");
+    let caporiga = document.createElement("<br>");
 
-    //Creazione input, output e bottone per la ricerca dello studente
+    //Creazione input, output e bottone per la RICERCA dello studente
 
     let etichetta = document.createElement("label");
     etichetta.innerHTML = "Inserisci il nome di uno studente per cercarlo fra i turni: ";
@@ -56,6 +56,9 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     ricerca.innerHTML = "Cerca studente";
     ricerca.onclick = function () { cercaStudente(turni); };
     appendi.appendChild(ricerca);
+    
+    appendi.appendChild(caporiga);
+    appendi.appendChild(caporiga);
 
     for (let i = 0; i < 2; i++) {
         appendi.appendChild(caporiga);
@@ -65,7 +68,7 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     ricerca.id = "outputRicerca";
     appendi.appendChild(ricerca);
 
-    //Creazione input, output e bottone per l'aggiunta di uno studente
+    //Creazione input, output e bottone per l'AGGIUNTA di uno studente
 
     etichetta = document.createElement("label");
     etichetta.innerHTML = "Inserisci il nome di un turno dove AGGIUNGERE uno studente: ";
@@ -86,6 +89,48 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     let aggiunta = document.createElement("input");
     aggiunta.type = "text";
+    aggiunta.id = "studenteAggiunta";
+    appendi.appendChild(aggiunta);
+
+    for (let i = 0; i < 2; i++) {
+        appendi.appendChild(caporiga);
+    }
+
+    aggiunta = document.createElement("button");
+    aggiunta.innerHTML = "Aggiungi studente";
+    aggiunta.onclick = function () { aggiuntaStudente(turni); };
+    appendi.appendChild(aggiunta);
+
+    for (let i = 0; i < 2; i++) {
+        aggiunta = document.createElement("br");
+        appendi.appendChild(caporiga);
+    }
+
+    aggiunta = document.createElement("div");
+    aggiunta.id = "outputAggiunta";
+    appendi.appendChild(aggiunta);
+
+    //Creazione input, output e bottone per la RIMOZIONE di uno studente
+
+    etichetta = document.createElement("label");
+    etichetta.innerHTML = "Inserisci il nome di un turno dove RIMUOVERE uno studente: ";
+    appendi.appendChild(etichetta);
+
+    let turno2 = document.createElement("input");
+    turno2.type = "text";
+    turno2.id = "turnoAggiunta";
+    appendi.appendChild(turno2);
+
+    for (let i = 0; i < 2; i++) {
+        appendi.appendChild(caporiga);
+    }
+
+    etichetta = document.createElement("label");
+    etichetta.innerHTML = "Inserisci il nome dello studente da aggiungere: ";
+    appendi.appendChild(etichetta);
+
+    let rimozione = document.createElement("input");
+    rimozione.type = "text";
     aggiunta.id = "studenteAggiunta";
     appendi.appendChild(aggiunta);
 
