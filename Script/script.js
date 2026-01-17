@@ -42,7 +42,7 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     let ricerca = document.createElement("input");
     ricerca.type = "text";
-    ricerca.id = "studenteCercato";
+    ricerca.id = "cerca";
     appendi.appendChild(ricerca);
     ricerca = document.createElement("button");
     ricerca.innerHTML = "Cerca studente";
@@ -52,8 +52,20 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 }
 
 function cercaStudente(turni) {
+    let studente = document.getElementById("cerca").value;
+    let trovato = false;
 
+    for (let [chiave, valore] of turni) {
+        if (turni.includes(studente)) {
+            trovato = true;
+            document.getElementById("output").innerHTML = "Lo studente " + studente + " è stato trovato nel " + chiave;;
+            break;
+        }
+    }
 
-
+    if (trovato == false) {
+        document.getElementById("output").innerHTML = "Lo studente " + studente + " non è stato trovato in nessun turno.";
+    }
+    
     return;
 }
