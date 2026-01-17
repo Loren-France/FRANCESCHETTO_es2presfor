@@ -100,9 +100,12 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     for (let i = 0; i < 2; i++) {
         aggiunta = document.createElement("br");
-        appendi.appendChild(aggiunta);
+        appendi.appendChild(caporiga);
     }
 
+    aggiunta = document.createElement("div");
+    aggiunta.id = "outputAggiunta";
+    appendi.appendChild(aggiunta);
 }
 
 function cercaStudente(turni) {
@@ -128,14 +131,14 @@ function cercaStudente(turni) {
 }
 
 function aggiuntaStudente(turni) {
-    let aggiunto = document.getElementById("aggiunta").value;
+    let aggiunto = document.getElementById("studenteAggiunta").value;
     let turno = document.getElementById("turnoAggiunta").value;
 
-    if (turni.keys().includes(turno)) { 
-
+    if (turni.has(`${turno}`)) { 
+        turni.set(`${turno}`,`, ${aggiunto}`);
     }
     else {
-        document.getElementById("outputRicerca").innerHTML = "Il turno " + turno + " non esiste!";
+        document.getElementById("outputAggiunta").innerHTML = "Il turno " + turno + " non esiste! (Copiare ed incollare il nome del turno senza inserire spazi o caratteri extra)";
     }
 
     return;
