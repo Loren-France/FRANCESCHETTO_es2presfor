@@ -2,15 +2,15 @@ function CreaTurni() {
 let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     let turni = new Map([
-        ["Turno 08:00-09:00:", "S01, S02, S03"],
-        ["Turno 09:00-10:00:", "S04, S05, S06"],
-        ["Turno 10:00-11:00:", "S07, S08, S09"]
+        ["Turno 08:00-09:00", "S01, S02, S03"],
+        ["Turno 09:00-10:00", "S04, S05, S06"],
+        ["Turno 10:00-11:00", "S07, S08, S09"]
     ]);
 
     document.getElementById("tabellaTurni").innerHTML = titolo + "<br>";
 
     for (let [chiave, valore] of turni) {
-        document.getElementById("tabellaTurni").innerHTML += chiave + " " + valore + "<br><br>";
+        document.getElementById("tabellaTurni").innerHTML += chiave + " : " + valore + "<br><br>";
     }
 
     let quantTurni = turni.size;
@@ -44,9 +44,19 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     ricerca.type = "text";
     ricerca.id = "cerca";
     appendi.appendChild(ricerca);
+
     ricerca = document.createElement("button");
     ricerca.innerHTML = "Cerca studente";
-    ricerca.onclick = function() { () => cercaStudente(turni) };
+    ricerca.onclick = function () { cercaStudente(turni); };
+    appendi.appendChild(ricerca);
+
+    for (let i = 0; i < 2; i++) {
+        ricerca = document.createElement("br");
+        appendi.appendChild(ricerca);
+    }
+    
+    ricerca = document.createElement("div");
+    ricerca.id = "outputRicerca";
     appendi.appendChild(ricerca);
 
 }
@@ -56,16 +66,17 @@ function cercaStudente(turni) {
     let trovato = false;
 
     for (let [chiave, valore] of turni) {
-        if (turni.includes(studente)) {
+        let array = valore.split(", ");
+        if (array.includes(studente)) {
             trovato = true;
-            document.getElementById("output").innerHTML = "Lo studente " + studente + " è stato trovato nel " + chiave;;
+            document.getElementById("outputRicerca").innerHTML = "Lo studente " + studente + " è stato trovato nel " + chiave;
             break;
         }
     }
 
     if (trovato == false) {
-        document.getElementById("output").innerHTML = "Lo studente " + studente + " non è stato trovato in nessun turno.";
+        document.getElementById("outputRicerca").innerHTML = "Lo studente " + studente + " non è presente negli orari del laboratorio";
     }
-    
+
     return;
 }
