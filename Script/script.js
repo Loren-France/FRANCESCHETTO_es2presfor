@@ -1,23 +1,21 @@
 function CreaTurni() {
-let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
+document.getElementById("tabellaTurni").innerHTML = "";
+document.getElementById("output").innerHTML = "";
+document.getElementById("operazioni").innerHTML = "";
 
     let turni = new Map([
-        ["Turno 08:00-09:00", "S01, S02, S03"],
-        ["Turno 09:00-10:00", "S04, S05, S06"],
-        ["Turno 10:00-11:00", "S07, S08, S09"]
+        ["Turno 08:00-09:00", ["S01", "S02", "S03"]],
+        ["Turno 09:00-10:00", ["S04", "S05", "S06"]],
+        ["Turno 10:00-11:00", ["S07", "S08", "S09"]]
     ]);
 
-    document.getElementById("tabellaTurni").innerHTML = titolo + "<br>";
-
-    for (let [chiave, valore] of turni) {
-        document.getElementById("tabellaTurni").innerHTML += chiave + " : " + valore + "<br><br>";
-    }
+    stampaTurni(turni);
 
     let quantTurni = turni.size;
 
     let quantStudenti = 0;
-    for (let n of turni.values()) {
-        quantStudenti += n.split(",").length;
+    for (let [chiave,valore] of turni) {
+        quantStudenti += valore.length;
     }
 
     if(quantTurni<=0 || quantStudenti<=0){
@@ -32,6 +30,8 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
         document.getElementById("output").innerHTML += "Numero totale di studenti: "+ quantStudenti;
     }
 
+    //Creazione sezione operazioni sugli orari del laboratorio
+
     let operazioni = document.createElement("h3");
     operazioni.innerHTML = "Operazioni sugli orari del laboratorio:";
 
@@ -39,7 +39,7 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     appendi.appendChild(operazioni);
 
-    let caporiga = document.createElement("<br>");
+  
 
     //Creazione input, output e bottone per la RICERCA dello studente
 
@@ -56,12 +56,9 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     ricerca.innerHTML = "Cerca studente";
     ricerca.onclick = function () { cercaStudente(turni); };
     appendi.appendChild(ricerca);
-    
-    appendi.appendChild(caporiga);
-    appendi.appendChild(caporiga);
 
     for (let i = 0; i < 2; i++) {
-        appendi.appendChild(caporiga);
+        appendi.appendChild(document.createElement("br"));
     }
     
     ricerca = document.createElement("div");
@@ -80,11 +77,11 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     appendi.appendChild(turno1);
 
     for (let i = 0; i < 2; i++) {
-        appendi.appendChild(caporiga);
+        appendi.appendChild(document.createElement("br"));
     }
 
     etichetta = document.createElement("label");
-    etichetta.innerHTML = "Inserisci il nome dello studente da aggiungere: ";
+    etichetta.innerHTML = "Inserisci il nome dello studente da AGGIUNGERE: ";
     appendi.appendChild(etichetta);
 
     let aggiunta = document.createElement("input");
@@ -93,7 +90,7 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     appendi.appendChild(aggiunta);
 
     for (let i = 0; i < 2; i++) {
-        appendi.appendChild(caporiga);
+        appendi.appendChild(document.createElement("br"));
     }
 
     aggiunta = document.createElement("button");
@@ -102,8 +99,7 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
     appendi.appendChild(aggiunta);
 
     for (let i = 0; i < 2; i++) {
-        aggiunta = document.createElement("br");
-        appendi.appendChild(caporiga);
+        appendi.appendChild(document.createElement("br"));
     }
 
     aggiunta = document.createElement("div");
@@ -118,47 +114,60 @@ let titolo = "<h2>Tabella dei turni di accesso al laboratorio</h2>";
 
     let turno2 = document.createElement("input");
     turno2.type = "text";
-    turno2.id = "turnoAggiunta";
+    turno2.id = "turnoRimozione";
     appendi.appendChild(turno2);
 
     for (let i = 0; i < 2; i++) {
-        appendi.appendChild(caporiga);
+        appendi.appendChild(document.createElement("br"));
     }
 
     etichetta = document.createElement("label");
-    etichetta.innerHTML = "Inserisci il nome dello studente da aggiungere: ";
+    etichetta.innerHTML = "Inserisci il nome dello studente da RIMUOVERE: ";
     appendi.appendChild(etichetta);
 
     let rimozione = document.createElement("input");
     rimozione.type = "text";
-    aggiunta.id = "studenteAggiunta";
-    appendi.appendChild(aggiunta);
+    rimozione.id = "studenteRimozione";
+    appendi.appendChild(rimozione);
 
     for (let i = 0; i < 2; i++) {
-        appendi.appendChild(caporiga);
+        appendi.appendChild(document.createElement("br"));
     }
 
-    aggiunta = document.createElement("button");
-    aggiunta.innerHTML = "Aggiungi studente";
-    aggiunta.onclick = function () { aggiuntaStudente(turni); };
-    appendi.appendChild(aggiunta);
+    rimozione = document.createElement("button");
+    rimozione.innerHTML = "Rimouovi studente";
+    rimozione.onclick = function () { rimozioneStudente(turni); };
+    appendi.appendChild(rimozione);
 
     for (let i = 0; i < 2; i++) {
-        aggiunta = document.createElement("br");
-        appendi.appendChild(caporiga);
+        appendi.appendChild(document.createElement("br"));
     }
 
-    aggiunta = document.createElement("div");
-    aggiunta.id = "outputAggiunta";
-    appendi.appendChild(aggiunta);
+    rimozione = document.createElement("div");
+    rimozione.id = "outputRimozione";
+    appendi.appendChild(rimozione);9 
+
+    for (let i = 0; i < 2; i++) {
+        appendi.appendChild(document.createElement("br"));
+    }    
 }
+
+function stampaTurni(turni) {
+    let tabella = document.getElementById("tabellaTurni");
+    tabella.innerHTML = "<h2>Tabella dei turni di accesso al laboratorio</h2><br>";
+
+    for (let [chiave, valore] of turni) {
+        tabella.innerHTML += chiave + " : " + valore.join(", ") + "<br><br>";
+    }
+}
+
 
 function cercaStudente(turni) {
     let cercato = document.getElementById("cerca").value;
     let trovato = false;
 
     for (let [chiave, valore] of turni) {
-        let array = valore.split(", ");
+        let array = valore;
         if (array.includes(cercato)) {
             trovato = true;
             document.getElementById("outputRicerca").innerHTML = "Lo studente " + cercato + " è stato trovato nel " + chiave;
@@ -179,12 +188,57 @@ function aggiuntaStudente(turni) {
     let aggiunto = document.getElementById("studenteAggiunta").value;
     let turno = document.getElementById("turnoAggiunta").value;
 
-    if (turni.has(`${turno}`)) { 
-        turni.set(`${turno}`,`, ${aggiunto}`);
-    }
+    if (turni.has(turno)) {
+
+        let array = turni.get(turno);
+
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] == aggiunto) {
+                document.getElementById("outputAggiunta").innerHTML = "Lo studente " + aggiunto + " è già presente nel " + turno + "!";
+                return;
+            }
+        }
+        array.push(aggiunto);
+
+        turni.set(turno, array);
+
+        document.getElementById("outputAggiunta").innerHTML = "Studente aggiunto correttamente!";
+    } 
     else {
-        document.getElementById("outputAggiunta").innerHTML = "Il turno " + turno + " non esiste! (Copiare ed incollare il nome del turno senza inserire spazi o caratteri extra)";
+        document.getElementById("outputAggiunta").innerHTML = "Il turno " + turno + " non esiste!";
     }
+
+    stampaTurni(turni);
+
+    return;
+}
+
+
+function rimozioneStudente(turni) {
+    let rimosso = document.getElementById("studenteRimozione").value;
+    let turno = document.getElementById("turnoRimozione").value;
+
+    if (turni.has(turno)) {
+
+        let array = turni.get(turno);
+
+        let nuovalista = [];
+
+        for (let i = 0; i < array.length; i++) {
+            if (array[i] != rimosso) {
+                nuovalista.push(array[i]);
+            }
+        }
+
+        turni.set(turno, nuovalista);
+
+        document.getElementById("outputRimozione").innerHTML = "Studente rimosso correttamente!";
+    } 
+    else {
+        document.getElementById("outputRimozione").innerHTML = "Il turno " + turno + " non esiste!";
+    }
+
+    stampaTurni(turni);
 
     return;
 }
